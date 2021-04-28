@@ -59,12 +59,13 @@ export default function query (method, ...args) {
         if (cache) {
           let item = cache.shift()
           console.log("Shiftet Item from Q", item)
-          do {
+          while(item) {
             if (item) {
               window.ga(item.m, ...item.a)
             }
             item = cache.shift()
-          } while(!!item)
+            console.log("Shiftet Item from Q", item)
+          }
           window.localStorage.setItem('ga-cache', JSON.stringify(cache))
         }
       }
