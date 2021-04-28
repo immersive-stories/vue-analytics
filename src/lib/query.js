@@ -56,14 +56,11 @@ export default function query (method, ...args) {
         cache = JSON.parse(cache)
         if (cache) {
           let item = cache.shift()
-          console.log("Shiftet Item from Q", item)
           while(item) {
             if (item) {
-              window.ga(item.m, ...item.a)
-              console.log("Item sent", item.m, item.a)
+              window.ga(getMethod(method, id), ...args)
             }
             item = cache.shift()
-            console.log("Shiftet Item from Q", item)
           }
           window.localStorage.setItem('ga-cache', JSON.stringify(cache))
         }
