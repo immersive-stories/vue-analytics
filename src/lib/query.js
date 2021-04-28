@@ -43,13 +43,11 @@ export default function query (method, ...args) {
     }
 
     let isOffline = await isWebAppOffline()
-    console.log("Is webAppOffline?", isOffline)
     if (isOffline) {
       let cache = window.localStorage.getItem('ga-cache')
       if (cache) {
         cache = JSON.parse(cache)
         cache.push(t)
-        console.log("Push Item: ", t)
         window.localStorage.setItem('ga-cache', JSON.stringify(cache))
       }
     } else {
@@ -62,6 +60,7 @@ export default function query (method, ...args) {
           while(item) {
             if (item) {
               window.ga(item.m, ...item.a)
+              console.log("Item sent", item.m, item.a)
             }
             item = cache.shift()
             console.log("Shiftet Item from Q", item)
