@@ -49,8 +49,7 @@ export default function query (method, ...args) {
       if (cache) {
         cache = JSON.parse(cache)
         cache.push(t)
-        console.log("Push Item to offline Queue: ", t)
-        console.log("OfflineQueue: ", cache)
+        console.log("Push Item: ", t)
         window.localStorage.setItem('ga-cache', JSON.stringify(cache))
       }
     } else {
@@ -59,6 +58,7 @@ export default function query (method, ...args) {
         cache = JSON.parse(cache)
         if (cache) {
           let item = cache.shift()
+          console.log("Shiftet Item from Q", item)
           do {
             if (item) {
               window.ga(item.m, ...item.a)
