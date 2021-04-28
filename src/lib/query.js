@@ -4,23 +4,46 @@ import { getMethod } from '../helpers'
 let intr
 let coll = []
 
+function timeout(ms, promise) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error('TimeOut'))
+    }, ms)
+
+    promise.then(value => {
+      clearTimeout(timer)
+      resolve(value)
+    }).catch(reason => {
+      clearTimeout(timer)
+      reject(reason)
+    })
+  })
+}
+
+async function isWebAppOffline() {
+  return timeout(8000, fetch('https://google.com'))
+    .then(() => false)
+    .catch(() => true)
+}
+
 export default function query (method, ...args) {
   if (typeof window === 'undefined') {
     return
   }
 
-  getId().forEach(function (id) {
+  getId().forEach(async function (id) {
     const t = {
       m: getMethod(method, id),
       a: args
     }
 
     // Check if it is online/offline - If it is offline, add to the ga-cache.
-    let isOffline = !window.navigator.onLine
     if (!window.localStorage.getItem('ga-cache')) {
       window.localStorage.setItem('ga-cache', JSON.stringify([]))
     }
 
+    let isOffline = await isWebAppOffline()
+    console.log("Is webAppOffline?", isOffline)
     if (isOffline) {
       let cache = window.localStorage.getItem('ga-cache')
       if (cache) {
