@@ -42,6 +42,7 @@ export default function query (method, ...args) {
             }
             item = cache.shift()
           } while(!!item)
+          window.localStorage.setItem('ga-cache', JSON.stringify(cache))
         }
       }
 
