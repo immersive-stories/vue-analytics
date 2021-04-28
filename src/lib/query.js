@@ -15,6 +15,32 @@ export default function query (method, ...args) {
       a: args
     }
 
+    // Check if it is online/offline - If it is offline, add to the ga-cache.
+    let isOffline = !window.navigator.onLine
+    if (!window.localStorage.getItem('ga-cache')) {
+      window.localStorage.setItem('ga-cache', JSON.stringify([]))
+    }
+
+    if (isOffline) {
+      let cache = window.localStorage.getItem('ga-cache')
+      if (cache) {
+        cache = JSON.parse(cache)
+        cache.push(t)
+        window.localStorage.setItem('ga-cache', JSON.stringify(cache))
+      }
+    } else {
+      let cache = window.localStorage.getItem('ga-cache')
+      if (cache) {
+        cache = JSON.parse(cache)
+        if (cache) {
+          let item = cache.shift()
+          do {
+            window.ga(item.m, ...item.a)
+          } while(item = cache.shift())
+        }
+      }
+    }
+
     if(!window.ga) {
       config.untracked.push(t)
       return
