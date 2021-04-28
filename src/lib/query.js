@@ -26,6 +26,8 @@ export default function query (method, ...args) {
       if (cache) {
         cache = JSON.parse(cache)
         cache.push(t)
+        console.log("Push Item to offline Queue: ", t)
+        console.log("OfflineQueue: ", cache)
         window.localStorage.setItem('ga-cache', JSON.stringify(cache))
       }
     } else {
