@@ -21,7 +21,6 @@ export default function query (method, ...args) {
       window.localStorage.setItem('ga-cache', JSON.stringify([]))
     }
 
-    console.log("Offline impls")
     if (isOffline) {
       let cache = window.localStorage.getItem('ga-cache')
       if (cache) {
@@ -63,6 +62,7 @@ export default function query (method, ...args) {
         }, config.batch.delay)
       }
     } else {
+      console.log("FIRE")
       window.ga(getMethod(method, id), ...args)
     }
   })
