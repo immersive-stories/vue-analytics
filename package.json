@@ -1,10 +1,10 @@
 {
   "name": "vue-analytics",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Google Analytics plugin for Vue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MatteoGabriele/vue-analytics"
+    "url": "https://github.com/georgenis/vue-analytics"
   },
   "scripts": {
     "commit": "git-cz",
@@ -36,14 +36,14 @@
     "vue-analytics.d.ts"
   ],
   "author": {
-    "name": "Matteo Gabriele",
-    "email": "m.gabriele.dev@gmail.com"
+    "name": "George Krause",
+    "email": "info@george-krause.de"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MatteoGabriele/vue-analytics/issues"
+    "url": "https://github.com/georgenis/vue-analytics/issues"
   },
-  "homepage": "https://github.com/MatteoGabriele/vue-analytics#readme",
+  "homepage": "https://github.com/georgenis/vue-analytics#readme",
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
