@@ -35,8 +35,11 @@ export default function query (method, ...args) {
         if (cache) {
           let item = cache.shift()
           do {
-            window.ga(item.m, ...item.a)
-          } while(item = cache.shift())
+            if (item) {
+              window.ga(item.m, ...item.a)
+            }
+            item = cache.shift()
+          } while(!!item)
         }
       }
     }
