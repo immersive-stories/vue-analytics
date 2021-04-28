@@ -41,6 +41,7 @@ export default function query (method, ...args) {
       }
     }
 
+    console.log("FIRE1")
     if(!window.ga) {
       config.untracked.push(t)
       return
