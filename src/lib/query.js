@@ -42,32 +42,30 @@ export default function query (method, ...args) {
           } while(!!item)
         }
       }
-    }
 
-    console.log("FIRE1")
-    if(!window.ga) {
-      config.untracked.push(t)
-      return
-    }
-
-    if (config.batch.enabled) {
-      coll.push(t)
-
-      if (!intr) {
-        intr = setInterval(() => {
-          if (!coll.length) {
-            clearInterval(intr)
-            intr = null
-          } else {
-            coll.splice(0, config.batch.amount).forEach(q => {
-              window.ga(q.m, ...q.a)
-            })
-          }
-        }, config.batch.delay)
+      if(!window.ga) {
+        config.untracked.push(t)
+        return
       }
-    } else {
-      console.log("FIRE")
-      window.ga(getMethod(method, id), ...args)
+
+      if (config.batch.enabled) {
+        coll.push(t)
+
+        if (!intr) {
+          intr = setInterval(() => {
+            if (!coll.length) {
+              clearInterval(intr)
+              intr = null
+            } else {
+              coll.splice(0, config.batch.amount).forEach(q => {
+                window.ga(q.m, ...q.a)
+              })
+            }
+          }, config.batch.delay)
+        }
+      } else {
+        window.ga(getMethod(method, id), ...args)
+      }
     }
   })
 }
