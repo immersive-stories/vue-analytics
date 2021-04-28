@@ -21,7 +21,7 @@ function timeout(ms, promise) {
 }
 
 async function isWebAppOffline() {
-  return timeout(8000, fetch('https://google.com'))
+  return timeout(8000, fetch('http://numbersapi.com/5/math'))
     .then(() => false)
     .catch(() => true)
 }
