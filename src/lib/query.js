@@ -35,6 +35,7 @@ export default function query (method, ...args) {
           let item = cache.shift()
           while(item) {
             if (item) {
+              console.log(getMethod(method, id))
               window.ga(getMethod(method, id), ...args)
             }
             item = cache.shift()
