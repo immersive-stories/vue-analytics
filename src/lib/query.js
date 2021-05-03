@@ -4,28 +4,6 @@ import { getMethod } from '../helpers'
 let intr
 let coll = []
 
-function timeout(ms, promise) {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => {
-      reject(new Error('TimeOut'))
-    }, ms)
-
-    promise.then(value => {
-      clearTimeout(timer)
-      resolve(value)
-    }).catch(reason => {
-      clearTimeout(timer)
-      reject(reason)
-    })
-  })
-}
-
-async function isWebAppOffline() {
-  return timeout(8000, fetch('http://numbersapi.com/5/math'))
-    .then(() => false)
-    .catch(() => true)
-}
-
 export default function query (method, ...args) {
   if (typeof window === 'undefined') {
     return
@@ -42,13 +20,11 @@ export default function query (method, ...args) {
       window.localStorage.setItem('ga-cache', JSON.stringify([]))
     }
 
-    let isOffline = await isWebAppOffline()
-    if (isOffline) {
+    if (!window.isOnline) {
       let cache = window.localStorage.getItem('ga-cache')
       if (cache) {
         cache = JSON.parse(cache)
         cache.push(t)
-        console.log(t)
         window.localStorage.setItem('ga-cache', JSON.stringify(cache))
       }
     } else {
