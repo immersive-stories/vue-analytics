@@ -48,6 +48,7 @@ export default function query (method, ...args) {
       if (cache) {
         cache = JSON.parse(cache)
         cache.push(t)
+        console.log(t)
         window.localStorage.setItem('ga-cache', JSON.stringify(cache))
       }
     } else {
