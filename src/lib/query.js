@@ -38,7 +38,7 @@ export default function query (method, ...args) {
           while(item) {
             if (item) {
               await sleep(500)
-              window.ga(item.m, item.a)
+              window.ga(item.m, ...item.a)
             }
             item = cache.shift()
           }
