@@ -4,6 +4,8 @@ import { getMethod } from '../helpers'
 let intr
 let coll = []
 
+let sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
 export default function query (method, ...args) {
   if (typeof window === 'undefined') {
     return
@@ -35,7 +37,7 @@ export default function query (method, ...args) {
           let item = cache.shift()
           while(item) {
             if (item) {
-              console.log(getMethod(method, id))
+              await sleep(500)
               window.ga(getMethod(method, id), ...args)
             }
             item = cache.shift()
